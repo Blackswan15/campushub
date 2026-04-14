@@ -11,6 +11,8 @@ const clubRoutes = require('./routes/clubs');
 const eventRoutes = require('./routes/events');
 const adminRoutes = require('./routes/admin');
 const registrationRoutes = require('./routes/registrations');
+const subEventRoutes = require('./routes/subEvents');
+const verifyRoutes = require('./routes/verify');
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use('/api/clubs', clubRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/registrations', registrationRoutes);
+app.use('/api/sub-events', subEventRoutes);
+app.use('/api/verify', verifyRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'OK', timestamp: new Date() }));

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-  listEvents, getEvent, createEventHandler, updateEventHandler,
+  listEvents, getEvent, createEventHandler, updateEventHandler, deleteEventHandler,
   updateStatus, getOrganizerEventsHandler, getPendingEventsHandler,
-  registerEvent, getRegistrations,
+  getRegistrations,
 } = require('../controllers/eventController');
 const { verifyToken } = require('../middleware/auth');
 const { requireAdmin, requireOrganizer } = require('../middleware/roles');
@@ -14,8 +14,8 @@ router.get('/organizer', verifyToken, requireOrganizer, getOrganizerEventsHandle
 router.get('/:id', getEvent);
 router.post('/', verifyToken, requireOrganizer, createEventHandler);
 router.put('/:id', verifyToken, requireOrganizer, updateEventHandler);
+router.delete('/:id', verifyToken, requireOrganizer, deleteEventHandler);
 router.put('/:id/status', verifyToken, requireAdmin, updateStatus);
-router.post('/:id/register', verifyToken, registerEvent);
 router.get('/:id/registrations', verifyToken, getRegistrations);
 
 module.exports = router;

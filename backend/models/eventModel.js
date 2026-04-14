@@ -4,7 +4,7 @@ const getApprovedEvents = async ({ type, ref_id, search } = {}) => {
   let query = `
     SELECT e.*, u.name AS organizer_name,
       CASE WHEN e.type = 'department' THEN d.name ELSE c.name END AS source_name,
-      (SELECT COUNT(*) FROM registrations r WHERE r.event_id = e.id) AS registration_count
+      (SELECT COUNT(*) FROM registrations r JOIN sub_events se ON r.sub_event_id = se.id WHERE se.event_id = e.id) AS registration_count
     FROM events e
     LEFT JOIN users u ON e.created_by = u.id
     LEFT JOIN departments d ON e.type = 'department' AND e.ref_id = d.id
@@ -26,7 +26,7 @@ const getEventById = async (id) => {
   const [rows] = await pool.query(
     `SELECT e.*, u.name AS organizer_name,
       CASE WHEN e.type = 'department' THEN d.name ELSE c.name END AS source_name,
-      (SELECT COUNT(*) FROM registrations r WHERE r.event_id = e.id) AS registration_count
+      (SELECT COUNT(*) FROM registrations r JOIN sub_events se ON r.sub_event_id = se.id WHERE se.event_id = e.id) AS registration_count
      FROM events e
      LEFT JOIN users u ON e.created_by = u.id
      LEFT JOIN departments d ON e.type = 'department' AND e.ref_id = d.id
@@ -41,7 +41,7 @@ const getOrganizerEvents = async (userId) => {
   const [rows] = await pool.query(
     `SELECT e.*,
       CASE WHEN e.type = 'department' THEN d.name ELSE c.name END AS source_name,
-      (SELECT COUNT(*) FROM registrations r WHERE r.event_id = e.id) AS registration_count
+      (SELECT COUNT(*) FROM registrations r JOIN sub_events se ON r.sub_event_id = se.id WHERE se.event_id = e.id) AS registration_count
      FROM events e
      LEFT JOIN departments d ON e.type = 'department' AND e.ref_id = d.id
      LEFT JOIN clubs c ON e.type = 'club' AND e.ref_id = c.id
@@ -64,8 +64,12 @@ const getPendingEvents = async () => {
   return rows;
 };
 
-const createEvent = async ({ title, description, date, venue, created_by, type, ref_id, capacity }) => {
-  const [result] = await pool.query(
+// Returns a connection from the pool (for transactions)
+const getConnection = () => pool.getConnection();
+
+const createEvent = async ({ title, description, date, venue, created_by, type, ref_id, capacity }, conn) => {
+  const db = conn || pool;
+  const [result] = await db.query(
     `INSERT INTO events (title, description, date, venue, created_by, type, ref_id, capacity, status)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
     [title, description, date, venue, created_by, type, ref_id, capacity || null]
@@ -84,7 +88,11 @@ const updateEventStatus = async (id, status) => {
   await pool.query('UPDATE events SET status = ? WHERE id = ?', [status, id]);
 };
 
+const deleteEvent = async (id) => {
+  await pool.query('DELETE FROM events WHERE id = ?', [id]);
+};
+
 module.exports = {
   getApprovedEvents, getEventById, getOrganizerEvents, getPendingEvents,
-  createEvent, updateEvent, updateEventStatus,
+  createEvent, updateEvent, updateEventStatus, deleteEvent, getConnection,
 };

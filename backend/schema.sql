@@ -1,7 +1,4 @@
--- ============================================================
--- CampusHub Database Schema
--- Run this file against your MySQL server to set up the database
--- ============================================================
+
 
 CREATE DATABASE IF NOT EXISTS campushub;
 USE campushub;
@@ -54,11 +51,11 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE TABLE IF NOT EXISTS registrations (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
-  event_id INT NOT NULL,
+  sub_event_id INT NOT NULL,
   registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY unique_registration (user_id, event_id),
+  UNIQUE KEY unique_registration (user_id, sub_event_id),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+  FOREIGN KEY (sub_event_id) REFERENCES sub_events(id) ON DELETE CASCADE
 );
 
 -- Bookmarks table (optional feature)
