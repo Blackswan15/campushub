@@ -19,7 +19,7 @@ const OrganizerPanel = () => {
   const [showForm, setShowForm] = useState(false);
   
   const [activeClubReq, setActiveClubReq] = useState(isPendingOrg);
-  const [clubForm, setClubForm] = useState({ name: '', description: '' });
+  const [clubForm, setClubForm] = useState({ name: '', description: '', image_url: '' });
   
   const initialForm = { 
     title: '', description: '', date: '', venue: '', type: 'club', ref_id: '',
@@ -130,7 +130,7 @@ const OrganizerPanel = () => {
       await api.post('/clubs', clubForm);
       toast.success('Club request submitted! Awaiting admin approval.');
       setActiveClubReq(false);
-      setClubForm({ name: '', description: '' });
+      setClubForm({ name: '', description: '', image_url: '' });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed.');
     }
@@ -208,6 +208,13 @@ const OrganizerPanel = () => {
                 onChange={(e) => setClubForm({ ...clubForm, name: e.target.value })}
                 className="input-field"
                 required
+              />
+              <input
+                type="url"
+                placeholder="Image URL (optional)"
+                value={clubForm.image_url}
+                onChange={(e) => setClubForm({ ...clubForm, image_url: e.target.value })}
+                className="input-field"
               />
               <textarea
                 placeholder="What is this club about?"

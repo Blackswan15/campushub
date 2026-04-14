@@ -11,8 +11,8 @@ const requestClub = async (req, res) => {
   const { error, value } = createClubSchema.validate(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
 
-  const { name, description } = value;
-  const id = await createClub(name, description, req.user.id);
+  const { name, description, image_url } = value;
+  const id = await createClub(name, description, req.user.id, image_url);
 
   // Update user role to pending_org if they're a student
   if (req.user.role === 'student') {

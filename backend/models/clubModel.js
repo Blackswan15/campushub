@@ -22,10 +22,10 @@ const getClubById = async (id) => {
   return rows[0];
 };
 
-const createClub = async (name, description, createdBy) => {
+const createClub = async (name, description, createdBy, imageUrl) => {
   const [result] = await pool.query(
-    'INSERT INTO clubs (name, description, created_by, approved) VALUES (?, ?, ?, 0)',
-    [name, description, createdBy]
+    'INSERT INTO clubs (name, description, created_by, approved, image_url) VALUES (?, ?, ?, 0, ?)',
+    [name, description, createdBy, imageUrl || null]
   );
   return result.insertId;
 };

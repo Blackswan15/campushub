@@ -94,48 +94,60 @@ const Dashboard = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Sidebar: Dept/Club list */}
-          <div className="lg:col-span-1">
-            <div className="card p-3 space-y-1">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 mb-2">
-                {activeTab === 'departments' ? 'Departments' : 'Clubs'}
-              </p>
-              {currentList.length === 0 ? (
-                <p className="text-sm text-gray-400 px-2 py-4">Nothing found.</p>
-              ) : (
-                currentList.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => handleSelect(item.id, activeTab === 'departments' ? 'department' : 'club')}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl text-sm transition-all duration-200 ${
-                      selectedId === item.id
-                        ? 'bg-cyan-500 text-white font-medium'
-                        : 'text-gray-700 hover:bg-cyan-50'
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                ))
-              )}
-            </div>
+        {!selectedId && !search ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {currentList.length === 0 ? (
+              <p className="col-span-full text-center text-gray-400 py-10">Nothing found.</p>
+            ) : (
+              currentList.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleSelect(item.id, activeTab === 'departments' ? 'department' : 'club')}
+                  className="card p-0 overflow-hidden cursor-pointer hover:scale-[1.03] hover:shadow-xl hover:shadow-cyan-100 transition-all duration-300 bg-white"
+                >
+                  <div className="bg-gray-100 h-40 w-full overflow-hidden border-b border-gray-100">
+                    <img
+                      src={item.image_url || (activeTab === 'departments' 
+                        ? 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80' 
+                        : 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=600&q=80')}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src = 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=600&q=80';
+                      }}
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-semibold text-gray-800 text-lg leading-snug">{item.name}</h3>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
-
-          {/* Main: Events grid */}
-          <div className="lg:col-span-3">
-            {!selectedId && events.length === 0 ? (
-              <div className="text-center py-20 text-gray-400">
-                <div className="text-6xl mb-4">📅</div>
-                <p className="text-lg font-medium">Select a {activeTab === 'departments' ? 'department' : 'club'} to browse events</p>
+        ) : (
+          <div>
+            {!search && (
+              <div className="mb-6 flex items-center justify-between bg-white px-5 py-3 rounded-2xl shadow-sm border border-gray-100">
+                <button 
+                  onClick={() => { setSelectedId(null); setEvents([]); }}
+                  className="text-cyan-600 hover:text-cyan-800 font-medium flex items-center gap-2 transition-colors px-3 py-1.5 rounded-lg hover:bg-cyan-50"
+                >
+                  <span>←</span> Back to {activeTab === 'departments' ? 'Departments' : 'Clubs'}
+                </button>
+                <h2 className="text-lg font-serif-italic font-medium text-gray-800">
+                  {currentList.find(i => i.id === selectedId)?.name} Events
+                </h2>
               </div>
-            ) : loadingEvents ? (
+            )}
+            
+            {loadingEvents ? (
               <div className="flex justify-center py-20">
                 <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
               </div>
             ) : events.length === 0 ? (
-              <div className="text-center py-20 text-gray-400">
+              <div className="text-center py-20 text-gray-400 bg-white rounded-2xl shadow-sm border border-gray-100">
                 <div className="text-5xl mb-4">🔍</div>
-                <p>No events found.</p>
+                <p>No events found for this selection.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -145,7 +157,7 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
