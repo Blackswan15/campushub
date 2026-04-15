@@ -17,7 +17,7 @@ const Landing = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-center">
           <div className="inline-flex items-center gap-2 bg-cyan-50 border border-cyan-200 rounded-full px-4 py-1.5 mb-6">
             <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-            <span className="text-sm text-cyan-700 font-medium">Your Campus, Centralized</span>
+            <span className="text-sm text-cyan-700 font-medium">Yoursampus, Centralized</span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif-italic text-gray-900 mb-6 leading-tight">
