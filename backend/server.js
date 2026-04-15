@@ -3,7 +3,6 @@ require('express-async-errors');
 
 const express = require('express');
 const cors = require('cors');
-const passport = require('./config/passport');
 
 const authRoutes = require('./routes/auth');
 const departmentRoutes = require('./routes/departments');
@@ -19,7 +18,6 @@ const app = express();
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
-app.use(passport.initialize());
 
 // Routes
 app.use('/api/auth', authRoutes);

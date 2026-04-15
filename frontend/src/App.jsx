@@ -10,7 +10,6 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import EventDetail from './pages/EventDetail';
 import MyEvents from './pages/MyEvents';
-import OAuthCallback from './pages/OAuthCallback';
 import AdminPanel from './pages/AdminPanel';
 import OrganizerPanel from './pages/OrganizerPanel';
 
@@ -31,7 +30,6 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/oauth-callback" element={<OAuthCallback />} />
           <Route path="/events/:id" element={<EventDetail />} />
 
           {/* Protected - Any authenticated user */}

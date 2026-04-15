@@ -15,10 +15,6 @@ const Landing = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-center">
-          <div className="inline-flex items-center gap-2 bg-cyan-50 border border-cyan-200 rounded-full px-4 py-1.5 mb-6">
-            <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-            <span className="text-sm text-cyan-700 font-medium">Yoursampus, Centralized</span>
-          </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif-italic text-gray-900 mb-6 leading-tight">
             Discover{' '}
@@ -26,7 +22,7 @@ const Landing = () => {
           </h1>
 
           <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-            One platform for all college events — from department seminars to club competitions.
+            One platform for all college events -- from department seminars to club competitions.
             Stop scrolling through WhatsApp groups. Start discovering what matters.
           </p>
 
@@ -58,17 +54,14 @@ const Landing = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                emoji: '🎓',
                 title: 'Department Events',
                 desc: 'Browse technical seminars, workshops, and academic events from every department.',
               },
               {
-                emoji: '🏆',
                 title: 'Club Activities',
                 desc: 'Discover coding competitions, cultural shows, sports fests, and more from your clubs.',
               },
               {
-                emoji: '✅',
                 title: 'Easy Registration',
                 desc: 'Register with one click. Track your upcoming events all in one dashboard.',
               },

@@ -160,7 +160,7 @@ const EventDetail = () => {
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs font-semibold text-cyan-600 uppercase tracking-wide bg-cyan-50 px-3 py-1 rounded-full border border-cyan-100">
-                {event.type === 'department' ? '🎓 Department' : '🏆 Club'} · {event.source_name}
+                {event.type === 'department' ? ' Department' : 'Club'} · {event.source_name}
               </span>
               {event.status === 'approved' && (
                 <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded">✓ Approved</span>

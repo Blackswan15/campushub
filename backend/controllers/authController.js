@@ -39,7 +39,6 @@ const login = async (req, res) => {
 
   const user = await findByEmail(email);
   if (!user) return res.status(401).json({ message: 'Invalid credentials.' });
-  if (!user.password) return res.status(401).json({ message: 'Please login with Google.' });
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return res.status(401).json({ message: 'Invalid credentials.' });
@@ -49,17 +48,10 @@ const login = async (req, res) => {
   res.json({ token, user: safeUser });
 };
 
-const googleCallback = async (req, res) => {
-  const user = req.user;
-  const token = generateToken(user);
-  // Redirect to frontend with token
-  res.redirect(`${process.env.CLIENT_URL}/oauth-callback?token=${token}`);
-};
-
 const getMe = async (req, res) => {
   const user = await findById(req.user.id);
   if (!user) return res.status(404).json({ message: 'User not found.' });
   res.json(user);
 };
 
-module.exports = { signup, login, googleCallback, getMe };
+module.exports = { signup, login, getMe };

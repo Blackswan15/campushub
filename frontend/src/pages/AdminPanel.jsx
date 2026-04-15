@@ -72,11 +72,11 @@ const AdminPanel = () => {
   };
 
   const tabs = [
-    { key: 'overview', label: '📊 Overview' },
-    { key: 'events', label: '⏳ Pending Events' },
-    { key: 'clubs', label: '🏆 Pending Clubs' },
-    { key: 'departments', label: '🎓 Departments' },
-    { key: 'users', label: '👥 Users' },
+    { key: 'overview', label: 'Overview' },
+    { key: 'events', label: 'Pending Events' },
+    { key: 'clubs', label: 'Pending Clubs' },
+    { key: 'departments', label: 'Departments' },
+    { key: 'users', label: 'Users' },
   ];
 
   return (
@@ -128,7 +128,6 @@ const AdminPanel = () => {
           <div className="space-y-4">
             {pendingEvents.length === 0 ? (
               <div className="text-center text-gray-400 py-16">
-                <div className="text-5xl mb-3">✅</div>
                 <p>No pending events.</p>
               </div>
             ) : (
@@ -168,7 +167,6 @@ const AdminPanel = () => {
           <div className="space-y-4">
             {pendingClubs.length === 0 ? (
               <div className="text-center text-gray-400 py-16">
-                <div className="text-5xl mb-3">✅</div>
                 <p>No pending club requests.</p>
               </div>
             ) : (

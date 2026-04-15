@@ -388,7 +388,7 @@ const OrganizerPanel = () => {
           </div>
         ) : events.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
-            <div className="text-5xl mb-3">📝</div>
+            <div className="text-5xl mb-3"></div>
             <p>No events yet. Create your first event!</p>
           </div>
         ) : (

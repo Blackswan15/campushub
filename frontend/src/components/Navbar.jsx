@@ -30,7 +30,7 @@ const Navbar = () => {
     ],
     pending_org: [
       { to: '/dashboard', label: 'Explore' },
-      { to: '/organizer', label: 'Register Club ⏳' },
+      { to: '/organizer', label: 'Register Club ' },
     ],
   };
 

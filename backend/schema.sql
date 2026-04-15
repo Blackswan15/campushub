@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS clubs (
   description TEXT,
   created_by INT,
   approved BOOLEAN DEFAULT FALSE,
+  image_url VARCHAR(500),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
 );
@@ -45,6 +46,17 @@ CREATE TABLE IF NOT EXISTS events (
   capacity INT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Sub-Events table
+CREATE TABLE IF NOT EXISTS sub_events (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  event_id INT NOT NULL,
+  name VARCHAR(200) NOT NULL,
+  type VARCHAR(50),
+  capacity INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
 -- Registrations table

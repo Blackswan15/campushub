@@ -17,7 +17,7 @@ const EventCard = ({ event, showStatus = false }) => {
       <div>
         <div className="flex items-start justify-between mb-2">
           <span className="text-xs font-semibold text-cyan-600 uppercase tracking-wide">
-            {event.type === 'department' ? '🎓 Dept' : '🏆 Club'} · {event.source_name}
+            {event.type === 'department' ? ' Dept' : ' Club'} · {event.source_name}
           </span>
           {showStatus && statusBadge(event.status)}
         </div>

@@ -89,7 +89,7 @@ const Dashboard = () => {
                   : 'bg-white text-gray-600 border border-gray-200 hover:border-cyan-400'
               }`}
             >
-              {tab === 'departments' ? '🎓 Departments' : '🏆 Clubs'}
+              {tab === 'departments' ? ' Departments' : ' Clubs'}
             </button>
           ))}
         </div>
@@ -146,7 +146,7 @@ const Dashboard = () => {
               </div>
             ) : events.length === 0 ? (
               <div className="text-center py-20 text-gray-400 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div className="text-5xl mb-4">🔍</div>
+                <div className="text-5xl mb-4"></div>
                 <p>No events found for this selection.</p>
               </div>
             ) : (
