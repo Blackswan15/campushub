@@ -136,7 +136,7 @@ const updateStatus = async (req, res) => {
 
 const getOrganizerEventsHandler = async (req, res) => {
   const events = await getOrganizerEvents(req.user.id);
-  // Attach sub-events to each
+  // Attach sub-events to each-recursion
   const enriched = await Promise.all(
     events.map(async (e) => {
       const sub_events = await getSubEventsByEventId(e.id);

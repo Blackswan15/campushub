@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
@@ -9,6 +9,12 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const emailRef = useRef(null);
+
+  // Auto-focus email input on mount using useRef
+  useEffect(() => {
+    emailRef.current?.focus();
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -51,6 +57,7 @@ const Login = () => {
                 onChange={handleChange}
                 placeholder="you@college.edu"
                 className="input-field"
+                ref={emailRef}
                 required
               />
             </div>

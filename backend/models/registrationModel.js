@@ -1,21 +1,6 @@
 const pool = require('../config/db');
 
-const registerForEvent = async (userId, eventId) => {
-  const [result] = await pool.query(
-    'INSERT INTO registrations (user_id, event_id) VALUES (?, ?)',
-    [userId, eventId]
-  );
-  return result.insertId;
-};
-
-const isAlreadyRegistered = async (userId, eventId) => {
-  const [rows] = await pool.query(
-    'SELECT id FROM registrations WHERE user_id = ? AND event_id = ?',
-    [userId, eventId]
-  );
-  return rows.length > 0;
-};
-
+// Get all registrations for a specific user (used by /registrations/me)
 const getMyRegistrations = async (userId) => {
   const [rows] = await pool.query(
     `SELECT e.*, r.id AS registration_id, r.registered_at, r.sub_event_id, se.name AS sub_event_name, se.type AS sub_event_type,
@@ -31,16 +16,4 @@ const getMyRegistrations = async (userId) => {
   return rows;
 };
 
-const getEventRegistrations = async (eventId) => {
-  const [rows] = await pool.query(
-    `SELECT u.id, u.name, u.email, r.registered_at
-     FROM registrations r
-     JOIN users u ON r.user_id = u.id
-     JOIN sub_events se ON r.sub_event_id = se.id
-     WHERE se.event_id = ? ORDER BY r.registered_at ASC`,
-    [eventId]
-  );
-  return rows;
-};
-
-module.exports = { registerForEvent, isAlreadyRegistered, getMyRegistrations, getEventRegistrations };
+module.exports = { getMyRegistrations };

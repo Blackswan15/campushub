@@ -50,13 +50,11 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-serif-italic text-gray-900">Explore Events</h1>
           <p className="text-gray-500 mt-1">Browse events by department or club</p>
         </div>
 
-        {/* Search */}
         <form onSubmit={handleSearch} className="flex gap-3 mb-8">
           <input
             type="text"
@@ -77,7 +75,6 @@ const Dashboard = () => {
           )}
         </form>
 
-        {/* Toggle Tabs */}
         <div className="flex gap-2 mb-6">
           {['departments', 'clubs'].map((tab) => (
             <button

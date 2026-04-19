@@ -162,7 +162,6 @@ const AdminPanel = () => {
           </div>
         )}
 
-        {/* Pending Clubs */}
         {tab === 'clubs' && (
           <div className="space-y-4">
             {pendingClubs.length === 0 ? (
@@ -197,7 +196,6 @@ const AdminPanel = () => {
           </div>
         )}
 
-        {/* Departments */}
         {tab === 'departments' && (
           <div>
             <form onSubmit={handleAddDept} className="flex gap-3 mb-6">

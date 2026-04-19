@@ -1,5 +1,6 @@
 import { Calendar, MapPin, Users, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const statusBadge = (status) => {
   const map = { pending: 'badge-pending', approved: 'badge-approved', rejected: 'badge-rejected' };
@@ -57,6 +58,23 @@ const EventCard = ({ event, showStatus = false }) => {
       </Link>
     </div>
   );
+};
+
+// Props validation (Unit II — props validation topic)
+EventCard.propTypes = {
+  event: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    date: PropTypes.string.isRequired,
+    venue: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['club', 'department']).isRequired,
+    source_name: PropTypes.string,
+    status: PropTypes.string,
+    registration_count: PropTypes.number,
+    capacity: PropTypes.number,
+  }).isRequired,
+  showStatus: PropTypes.bool,
 };
 
 export default EventCard;

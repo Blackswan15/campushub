@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children, roles }) => {
@@ -16,6 +17,12 @@ const ProtectedRoute = ({ children, roles }) => {
   if (roles && !roles.includes(user.role)) return <Navigate to="/dashboard" replace />;
 
   return children;
+};
+
+// Props validation
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+  roles: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ProtectedRoute;

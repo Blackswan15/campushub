@@ -1,9 +1,6 @@
-
-
 CREATE DATABASE IF NOT EXISTS campushub;
 USE campushub;
 
--- Users table
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -13,14 +10,11 @@ CREATE TABLE IF NOT EXISTS users (
   google_id VARCHAR(100),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- Departments table
 CREATE TABLE IF NOT EXISTS departments (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) UNIQUE NOT NULL
 );
 
--- Clubs table
 CREATE TABLE IF NOT EXISTS clubs (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
@@ -32,7 +26,6 @@ CREATE TABLE IF NOT EXISTS clubs (
   FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- Events table
 CREATE TABLE IF NOT EXISTS events (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(200) NOT NULL,
@@ -48,7 +41,6 @@ CREATE TABLE IF NOT EXISTS events (
   FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- Sub-Events table
 CREATE TABLE IF NOT EXISTS sub_events (
   id INT AUTO_INCREMENT PRIMARY KEY,
   event_id INT NOT NULL,
@@ -59,7 +51,6 @@ CREATE TABLE IF NOT EXISTS sub_events (
   FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
--- Registrations table
 CREATE TABLE IF NOT EXISTS registrations (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -70,7 +61,6 @@ CREATE TABLE IF NOT EXISTS registrations (
   FOREIGN KEY (sub_event_id) REFERENCES sub_events(id) ON DELETE CASCADE
 );
 
--- Bookmarks table (optional feature)
 CREATE TABLE IF NOT EXISTS bookmarks (
   user_id INT NOT NULL,
   event_id INT NOT NULL,
@@ -80,18 +70,11 @@ CREATE TABLE IF NOT EXISTS bookmarks (
   FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- Seed Data
--- ============================================================
 
--- Admin user (password: Admin@123)
--- bcrypt hash of 'Admin@123'
 INSERT IGNORE INTO users (name, email, password, role) VALUES
 ('Super Admin', 'admin@campushub.com', '$2b$10$UmRvIh0ezmSjsFxTCHFsZUE.5hISNK1A2fDehP6JKH', 'admin');
 
--- Admin credentials: admin@campushub.com / Admin@123
 
--- Seed Departments
 INSERT IGNORE INTO departments (name) VALUES
 ('Computer Science & Engineering'),
 ('Electrical & Electronics Engineering'),
