@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import EventCard from '../components/EventCard';
+import LoadingSpinner from '../components/LoadingSpinner';
+import EmptyState from '../components/EmptyState';
 import toast from 'react-hot-toast';
 
 const Dashboard = () => {
@@ -138,13 +140,10 @@ const Dashboard = () => {
             )}
             
             {loadingEvents ? (
-              <div className="flex justify-center py-20">
-                <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-              </div>
+              <LoadingSpinner />
             ) : events.length === 0 ? (
-              <div className="text-center py-20 text-gray-400 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div className="text-5xl mb-4"></div>
-                <p>No events found for this selection.</p>
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+                <EmptyState emoji="📋" message="No events found for this selection." />
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">

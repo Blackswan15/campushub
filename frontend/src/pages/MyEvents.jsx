@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import EventCard from '../components/EventCard';
+import LoadingSpinner from '../components/LoadingSpinner';
+import EmptyState from '../components/EmptyState';
 
 const MyEvents = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -21,15 +23,9 @@ const MyEvents = () => {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-          </div>
+          <LoadingSpinner />
         ) : registrations.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">
-            <div className="text-6xl mb-4">📭</div>
-            <p className="text-lg font-medium">No registrations yet</p>
-            <p className="text-sm mt-1">Head to the dashboard to explore events!</p>
-          </div>
+          <EmptyState emoji="📭" message="No registrations yet" subMessage="Head to the dashboard to explore events!" />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {registrations.map((event) => (

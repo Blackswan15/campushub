@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import LoadingSpinner from './components/LoadingSpinner';
 
 // Code splitting — lazy load page components (React.lazy + Suspense)
 const Landing = lazy(() => import('./pages/Landing'));
@@ -14,13 +15,6 @@ const EventDetail = lazy(() => import('./pages/EventDetail'));
 const MyEvents = lazy(() => import('./pages/MyEvents'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 const OrganizerPanel = lazy(() => import('./pages/OrganizerPanel'));
-
-// Fallback spinner shown while lazy-loaded pages are loading
-const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin" />
-  </div>
-);
 
 function App() {
   return (
@@ -36,7 +30,7 @@ function App() {
               success: { iconTheme: { primary: '#06b6d4', secondary: '#fff' } },
             }}
           />
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={<LoadingSpinner fullScreen />}>
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
